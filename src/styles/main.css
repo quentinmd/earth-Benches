@@ -1,0 +1,1189 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Empêche le défilement du body lui-même */
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Empêche le défilement global */
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.header {
+  flex-shrink: 0; /* Empêche le header de rétrécir */
+  z-index: 1000;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+  overflow-y: auto; /* Permet le défilement à l'intérieur du contenu */
+  position: relative;
+  min-height: 0; /* Important pour que flex puisse réduire la hauteur */
+}
+
+/* Carte */
+.map-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 100% !important;
+  min-height: 0 !important; /* Remplacer la valeur fixe */
+}
+
+/* Marqueur utilisateur avec animation de pulsation */
+.user-marker {
+  background: none;
+  border: none;
+}
+
+.pulse {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(38, 116, 241, 0.9);
+  border: 3px solid white;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(38, 116, 241, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(38, 116, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0);
+  }
+}
+
+/* Marqueurs des bancs */
+.bench-marker {
+  background: none;
+  border: none;
+}
+
+.bench-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.bench-icon .rating-badge {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background-color: #FFC107;
+  color: #333;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+}
+
+/* Style pour les clusters de bancs */
+.bench-cluster {
+  background: none;
+  border: none;
+}
+
+.cluster-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup des bancs */
+.bench-popup {
+  text-align: center;
+  padding: 5px;
+}
+
+.bench-popup h3 {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.bench-rating {
+  color: #FFC107;
+  margin-bottom: 10px;
+}
+
+.review-count {
+  color: #777;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.details-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Barre de navigation du bas */
+.bottom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 0.5rem;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 5;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 0.8rem;
+  flex: 1;
+  transition: color 0.3s;
+}
+
+.nav-btn i {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.nav-btn.active {
+  color: #4CAF50;
+}
+
+.add-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: -30px;
+  z-index: 10;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.add-btn:active {
+  transform: scale(0.95);
+  background-color: #388E3C;
+}
+
+/* Système de notation */
+.rating-system {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.star {
+  font-size: 1.8rem;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0 3px;
+}
+
+.star.filled {
+  color: #FFC107;
+}
+
+.star.read-only {
+  cursor: default;
+  font-size: 1.4rem;
+}
+
+.rating-label {
+  font-size: 0.9rem;
+  color: #666;
+  height: 20px;
+}
+
+/* Détails du banc */
+.bench-details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.back-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.bench-images {
+  height: 35vh;
+  background-color: #e0e0e0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bench-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #aaa;
+  font-size: 5rem;
+}
+
+.bench-info-card {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  margin-top: -20px;
+  z-index: 2;
+  overflow-y: auto;
+}
+
+.bench-info-card h2 {
+  margin-bottom: 1rem;
+}
+
+.bench-rating-summary {
+  margin-bottom: 1.5rem;
+}
+
+.avg-rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rating-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.bench-details-list {
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.detail-item i {
+  width: 25px;
+  margin-right: 10px;
+  color: #4CAF50;
+}
+
+.bench-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  color: #4CAF50;
+}
+
+.action-btn i {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.action-btn span {
+  font-size: 0.8rem;
+}
+
+/* Formulaire d'avis */
+.review-form {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.review-form h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: none;
+  height: 100px;
+}
+
+.submit-review-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.submit-review-btn:disabled {
+  background-color: #ccc;
+}
+
+.review-success {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+}
+
+.review-success i {
+  font-size: 2.5rem;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+}
+
+/* Formulaire d'ajout de banc */
+.add-bench-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.location-picker-map {
+  height: 40vh;
+}
+
+.form-section {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  margin-top: -20px;
+  overflow-y: auto;
+}
+
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.coordinates-display {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.position-hint {
+  color: #777;
+  font-style: italic;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn,
+.submit-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+}
+
+/* Overlay de chargement */
+.loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 10px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .bench-details {
+    flex-direction: row;
+  }
+  
+  .bench-images {
+    height: 100%;
+    width: 45%;
+  }
+  
+  .bench-info-card {
+    width: 55%;
+    margin-top: 0;
+    border-radius: 0;
+  }
+}
+
+/* Styles pour les marqueurs de bancs */
+.bench-marker .bench-icon {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.bench-popup {
+  min-width: 200px;
+  padding: 5px;
+}
+
+.bench-popup h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.bench-popup p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.bench-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rate-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.osm-link {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.osm-link:hover {
+  text-decoration: underline;
+}
+
+/* Marqueur de localisation de l'utilisateur */
+.user-location-marker {
+  background: none;
+  border: none;
+}
+
+.pulse {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(38, 116, 241, 0.9);
+  border: 2px solid white;
+  box-shadow: 0 0 0 rgba(38, 116, 241, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(38, 116, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0);
+  }
+}
+
+/* Bouton de géolocalisation */
+.locate-button-container {
+  margin-bottom: 10px;
+}
+
+.locate-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: white;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1a73e8;
+  font-size: 18px;
+}
+
+/* Compteur de bancs */
+.bench-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+/* Formulaire d'ajout de bancs */
+.new-bench-form {
+  width: 220px;
+  padding: 10px;
+}
+
+.new-bench-form h3 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.save-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* Styles pour différents types de bancs */
+.bench-marker .bench-icon {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.bench-marker .bench-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Style pour les bancs avec dossier */
+.bench-marker .bench-icon.has-backrest {
+  color: #2E7D32;
+  border-color: #2E7D32;
+}
+
+/* Style pour les bancs aux arrêts de transport */
+.bench-type-transport .bench-icon {
+  border-color: #0288D1;
+  color: #0288D1;
+}
+
+/* Styles selon les matériaux */
+.material-wood .bench-icon {
+  background-color: #FFECB3;
+}
+
+.material-metal .bench-icon {
+  background-color: #E0E0E0;
+}
+
+.material-stone .bench-icon {
+  background-color: #ECEFF1;
+}
+
+.material-concrete .bench-icon {
+  background-color: #CFD8DC;
+}
+
+.material-plastic .bench-icon {
+  background-color: #E1F5FE;
+}
+
+/* Compteur de bancs amélioré */
+.bench-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1000;
+  font-weight: 500;
+  font-size: 14px;
+  color: #4CAF50;
+  transition: all 0.3s ease;
+}
+
+.bench-counter strong {
+  font-size: 16px;
+}
+
+/* Styles pour les différents types de bancs */
+.bench-marker .bench-icon {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+/* Style pour les bancs avec dossier */
+.bench-marker .bench-icon.has-backrest {
+  background-color: #E8F5E9;
+}
+
+/* Style pour les bancs d'arrêt de transport */
+.bench-type-transport .bench-icon {
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+/* Style pour les tables de pique-nique */
+.bench-type-picnic .bench-icon {
+  border-color: #FF9800;
+  color: #FF9800;
+}
+
+/* Marqueur de localisation utilisateur */
+.user-location-marker {
+  background: none;
+  border: none;
+}
+
+.pulse {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(38, 116, 241, 0.9);
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(38, 116, 241, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(38, 116, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(38, 116, 241, 0);
+  }
+}
+
+/* Bouton de localisation */
+.locate-button-container {
+  margin-bottom: 10px;
+}
+
+.locate-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: white;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1a73e8;
+  font-size: 18px;
+}
+
+/* Popup de banc */
+.bench-popup {
+  min-width: 200px;
+  padding: 10px;
+  text-align: center;
+}
+
+.bench-popup h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.bench-popup p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.bench-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rate-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.osm-link {
+  color: #1a73e8;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.leaflet-default-icon-path {
+  background-image: url("https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png");
+}
+
+/* Styles pour les marqueurs de clusters */
+.marker-cluster-small {
+  background-color: rgba(181, 226, 140, 0.6);
+}
+.marker-cluster-small div {
+  background-color: rgba(110, 204, 57, 0.6);
+}
+
+.marker-cluster-medium {
+  background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+  background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large {
+  background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+  background-color: rgba(241, 128, 23, 0.6);
+}
+
+.marker-cluster {
+  background-clip: padding-box;
+  border-radius: 20px;
+}
+
+.marker-cluster div {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  text-align: center;
+  border-radius: 15px;
+  font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+.marker-cluster span {
+  line-height: 30px;
+}
+.bench-rating {
+  margin: 10px 0;
+}
+
+.stars-display {
+  color: #FFD700;
+  font-size: 18px;
+}
+
+.rating-value {
+  margin-left: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.review-count {
+  font-size: 12px;
+  color: #666;
+  margin-left: 3px;
+}
+
+.rating-ui {
+  margin: 10px 0;
+}
+
+.rating-message {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #666;
+}
+
+.stars-input {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.rating-star {
+  transition: color 0.2s;
+}
+
+.rating-star:hover, 
+.rating-star:hover ~ .rating-star {
+  color: #FFD700;
+}
+
+.rating-star:hover ~ .rating-star {
+  color: #FFD700;
+}
+
+.rate-btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 5px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.rate-btn:hover {
+  background-color: #388E3C;
+}
+
+/* Amélioration du style des popups */
+.bench-popup {
+  min-width: 200px;
+}
+
+.bench-popup h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+/* Styles pour le bouton d'ajout de banc */
+.add-bench-button-container {
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  z-index: 1000;
+}
+
+.add-bench-toggle-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.add-bench-toggle-btn.active {
+  background-color: #f44336;
+}
+
+.add-bench-toggle-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.add-bench-toggle-btn i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+  .add-bench-toggle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .add-bench-toggle-btn i {
+    margin-right: 0;
+    font-size: 20px;
+  }
+  
+  .btn-text {
+    display: none;
+  }
+}
+
+/* Mise à jour des styles de l'instruction panel */
+.instructions-panel {
+  transition: background-color 0.3s ease;
+}
+
+.instructions-panel p {
+  transition: color 0.3s ease;
+}
+
+.user-instructions .instructions-panel {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mode d'ajout actif - changement de couleur des instructions */
+.add-bench-toggle-btn.active + .user-instructions .instructions-panel {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Assurer que le footer reste en bas */
+.footer {
+  flex-shrink: 0; /* Empêche le footer de rétrécir */
+  background-color: #333;
+  color: #f5f5f5;
+  padding: 20px 0 10px; /* Réduire le padding sur mobile */
+  margin-top: auto;
+}
+
+/* Ajouter à main.css */
+
+.mobile-view .footer {
+  position: relative;
+  z-index: 10;
+}
+
+.mobile-view .main-content {
+  z-index: 5;
+}
+
+.mobile-view #map {
+  height: calc(100vh - 70px - 150px) !important; /* Hauteur spécifique pour mobile */
+}

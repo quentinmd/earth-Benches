@@ -1,0 +1,85 @@
+/* Styles pour tablette */
+@media (max-width: 992px) {
+    .benches-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Styles pour mobile */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      flex: 1;
+    }
+    
+    .mobile-menu-button {
+      display: flex;
+    }
+    
+    .main-nav {
+      flex-basis: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .main-nav.open {
+      max-height: 300px;
+    }
+    
+    .main-nav ul {
+      flex-direction: column;
+      margin-top: 15px;
+    }
+    
+    .main-nav li {
+      margin: 5px 0;
+    }
+    
+    .benches-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .list-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .list-filters select {
+      margin-top: 10px;
+      width: 100%;
+    }
+    
+    /* Modifier le bouton d'ajout pour mobile */
+    .add-bench-button {
+      width: auto;
+      height: 50px;
+      border-radius: 25px;
+      padding: 0 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+    
+    .plus-icon {
+      margin-right: 5px;
+    }
+    
+    .button-text {
+      display: inline;
+      font-size: 14px;
+    }
+  }
+  
+  /* Ajustements pour très petits écrans */
+  @media (max-width: 480px) {
+    .logo h1 {
+      font-size: 1.4rem;
+    }
+    
+    .bench-image {
+      height: 160px;
+    }
+  }

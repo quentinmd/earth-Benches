@@ -1,0 +1,208 @@
+/* Styles pour tablette */
+@media (max-width: 992px) {
+    .benches-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  
+  /* Styles pour mobile */
+  @media (max-width: 768px) {
+    .header-container {
+      flex-wrap: wrap;
+    }
+    
+    .logo {
+      flex: 1;
+    }
+    
+    .mobile-menu-button {
+      display: flex;
+    }
+    
+    .main-nav {
+      flex-basis: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .main-nav.open {
+      max-height: 300px;
+    }
+    
+    .main-nav ul {
+      flex-direction: column;
+      margin-top: 15px;
+    }
+    
+    .main-nav li {
+      margin: 5px 0;
+    }
+    
+    .benches-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .list-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .list-filters select {
+      margin-top: 10px;
+      width: 100%;
+    }
+    
+    /* Modifier le bouton d'ajout pour mobile */
+    .add-bench-button {
+      width: auto;
+      height: 50px;
+      border-radius: 25px;
+      padding: 0 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+    
+    .plus-icon {
+      margin-right: 5px;
+    }
+    
+    .button-text {
+      display: inline;
+      font-size: 14px;
+    }
+
+    /* Réduire la taille du footer sur mobile */
+    .footer {
+      padding: 10px 0 5px;
+      margin-top: 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    
+    /* Réduire la taille des contenus du footer */
+    .footer-container {
+      padding: 0 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .footer-section {
+      width: 50%;
+      padding: 0 5px;
+      margin-bottom: 5px;
+    }
+    
+    .footer-section h3 {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    
+    .footer-section p,
+    .footer-links li,
+    .footer-links a {
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+    }
+    
+    .social-links {
+      gap: 8px;
+    }
+    
+    .social-links a {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .footer-bottom {
+      margin-top: 5px;
+      padding-top: 5px;
+      font-size: 0.7rem;
+    }
+    
+    /* Ajuster la hauteur de la carte pour qu'elle ne soit pas cachée par le footer */
+    #map {
+      height: calc(100vh - 70px - 80px) !important; /* 70px pour header, 80px pour footer */
+    }
+    
+    .map-container {
+      padding-bottom: 80px; /* Espace pour le footer */
+    }
+    
+    /* S'assurer que le contenu principal ne défile pas derrière le footer */
+    .main-content {
+      padding-bottom: 80px;
+      margin-bottom: 0;
+    }
+    
+    /* Améliorer l'affichage de la page liste */
+    .bench-list-container {
+      padding: 10px;
+    }
+  }
+  
+  /* Ajustements pour très petits écrans */
+  @media (max-width: 480px) {
+    .logo h1 {
+      font-size: 1.4rem;
+    }
+    
+    .bench-image {
+      height: 160px;
+    }
+
+    .footer {
+      padding: 5px 0;
+    }
+    
+    .footer-section h3 {
+      font-size: 0.95rem;
+    }
+    
+    .footer-section p, 
+    .footer-links a {
+      font-size: 0.85rem;
+    }
+    
+    .bench-count-control {
+      font-size: 0.9rem;
+      padding: 4px 6px;
+    }
+    
+    .footer-section {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .social-links {
+      justify-content: center;
+    }
+    
+    /* Cacher certaines sections qui sont moins importantes */
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3) {
+      display: none;
+    }
+    
+    #map {
+      height: calc(100vh - 70px - 60px) !important; /* Réduire encore la taille du footer */
+    }
+    
+    .map-container {
+      padding-bottom: 60px;
+    }
+    
+    .main-content {
+      padding-bottom: 60px;
+    }
+  }
