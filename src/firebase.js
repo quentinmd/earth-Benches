@@ -5,12 +5,12 @@ import { getStorage } from "firebase/storage";
 
 // Nouvelle configuration Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyD1TkzyDbXj9cHvEI95J81NNDXjHmac860",
-  authDomain: "map-banc.firebaseapp.com",
-  projectId: "map-banc",
-  storageBucket: "map-banc.appspot.com",
-  messagingSenderId: "907928309587",
-  appId: "1:907928309587:web:f0bb98012127e1a98f9ba6"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialiser Firebase
